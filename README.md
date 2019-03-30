@@ -6,12 +6,11 @@
 
 ```json
 {
-  "drinkId", // only if required (update, delete)
-  "name",
-  "location",
-  "price",
-  "date",
-  "photo"
+  "name": "STRING",
+  "location": "STRING",
+  "price": "INTEGER",
+  "date": "DATE",
+  "photo": "STRING"
 }
 ```
 
