@@ -10,7 +10,6 @@
   "name",
   "location",
   "price",
-  "drink_name",
   "date",
   "photo"
 }
