@@ -1,0 +1,24 @@
+{
+  "name": "boba-watch-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderqchen/boba-watch-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexanderqchen/boba-watch-backend/issues"
+  },
+  "homepage": "https://github.com/alexanderqchen/boba-watch-backend#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "sequelize": "^5.2.7"
+  }
+}
