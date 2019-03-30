@@ -5,6 +5,7 @@ const drinksRouter = require('./routes/drinks');
 
 const PORT = 80;
 
+app.use(express.bodyParser());
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 
