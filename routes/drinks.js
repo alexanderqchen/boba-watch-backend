@@ -33,8 +33,8 @@ router.route('/')
 	let drinkId = drink.id;
 
 	Drinks.update(drink, { where: { id: drinkId } })
-	.then(drink => {
-		res.status(201).json(drink);
+	.then(counts => {
+		res.status(201).json(counts[0]);
 	})
 	.catch(err => {
 		res.status(400).json(err);
