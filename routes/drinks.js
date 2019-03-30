@@ -16,15 +16,9 @@ router.route('/')
 })
 // Add drink to user
 .post((req, res, next) => {
-	// let drink = req.body.drink;
+	let drink = req.body.drink;
 
-	Drinks.create({
-		name: 'test1',
-		location: 'testloc',
-		price: 123,
-		date: new Date(),
-		photo: 'asdf'
-	})
+	Drinks.create(drink)
 	.then(drink => {
 		res.status(201).json(drink);
 	})
@@ -34,15 +28,16 @@ router.route('/')
 })
 // Update drink
 .put((req, res, next) => {
-	// let drink = req.body.drink;
+	let drink = req.body.drink;
+	let drinkId = drink.id;
 
-	// try {
-	// 	drink = await updateDrink(drink);
-	// 	res.status(200).json(drink);
-	// }
-	// catch {
-	// 	res.status(500).json();
-	// }
+	Drinks.update(drink, { where: { id: drinkId } })
+	.then(drink => {
+		res.status(201).json(drink);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
 })
 // Delete drink from user
 .delete((req, res, next) => {
