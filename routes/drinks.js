@@ -34,7 +34,6 @@ router.route('/:id')
 	let drinkId = req.params.id;
 	let drink = req.body.drink;
 
-
 	Drinks.update(drink, { where: { id: drinkId } })
 	.then(counts => {
 		res.status(200).json(counts[0]);
