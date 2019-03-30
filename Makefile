@@ -3,4 +3,4 @@ ssh:
 sql:
 	mysql --host=35.236.79.15 --user=root --password
 setup:
-	mysql --host=35.236.79.15 --user=root --password < db-setup.sql
+	mysql --host=35.236.79.15 --user=root --password < ./scripts/db-setup.sql
