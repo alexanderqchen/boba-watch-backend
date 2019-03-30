@@ -1,24 +1,60 @@
 const express = require('express');
 const router = express.Router();
 
-router.route('/:uuid')
-// Get drinks from user
-.get((req, res, next) => {
-	const uuid = req.params.uuid;
+const Drinks = require('../models').Drinks;
 
-	res.send('get /drinks');
+router.route('/')
+// Get drinks from user
+.get(async (req, res, next) => {
+	// try {
+	// 	const drinks = await getDrinks();
+	// 	res.status(200).json(drinks);
+	// }
+	// catch {
+	// 	res.status(500).json();
+	// }
 })
 // Add drink to user
 .post((req, res, next) => {
-	const uuid = req.params.uuid;
+	// let drink = req.body.drink;
 
-	res.send('post /drinks');
+	Drinks.create({
+		name: 'test1',
+		location: 'testloc',
+		price: 123,
+		date: new Date(),
+		photo: 'asdf'
+	})
+	.then(drink => {
+		res.status(201).json(drink);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
+})
+// Update drink
+.put((req, res, next) => {
+	// let drink = req.body.drink;
+
+	// try {
+	// 	drink = await updateDrink(drink);
+	// 	res.status(200).json(drink);
+	// }
+	// catch {
+	// 	res.status(500).json();
+	// }
 })
 // Delete drink from user
 .delete((req, res, next) => {
-	const uuid = req.params.uuid;
+	// const drinkId = req.params.drinkId;
 
-	res.send('delete /drinks');
+	// try {
+	// 	const drink = await deleteDrink(drinkId);
+	// 	res.status(200).json(drink);
+	// }
+	// catch {
+	// 	res.status(500).json();
+	// }
 });
 
 module.exports = router;
