@@ -6,6 +6,7 @@
 
 ```json
 {
+  "id": "INTEGER, only for PUT and DELETE",
   "name": "STRING",
   "location": "STRING",
   "price": "INTEGER",
@@ -27,8 +28,8 @@
   - **Response:** Drink Object that was added
 - `PUT /drinks`
   - Updates drink for user
-  - **Request:** Drink Object with drinkId to update
-  - **Response:** Drink Object that was updated
+  - **Request:** Drink Object with id to update
+  - **Response:** Number of Objects updated
 - `DELETE /drinks`
   - Deletes drink for user
   - **Request:** drinkId

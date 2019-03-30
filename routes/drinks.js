@@ -21,7 +21,7 @@ router.route('/')
 
 	Drinks.create(drink)
 	.then(drink => {
-		res.status(201).json(drink);
+		res.status(200).json(drink);
 	})
 	.catch(err => {
 		res.status(400).json(err);
@@ -34,7 +34,7 @@ router.route('/')
 
 	Drinks.update(drink, { where: { id: drinkId } })
 	.then(counts => {
-		res.status(201).json(counts[0]);
+		res.status(200).json(counts[0]);
 	})
 	.catch(err => {
 		res.status(400).json(err);
@@ -42,15 +42,15 @@ router.route('/')
 })
 // Delete drink from user
 .delete((req, res, next) => {
-	// const drinkId = req.params.drinkId;
+	const id = req.params.id;
 
-	// try {
-	// 	const drink = await deleteDrink(drinkId);
-	// 	res.status(200).json(drink);
-	// }
-	// catch {
-	// 	res.status(500).json();
-	// }
+	Drinks.destroy({ where: { id } })
+	.then(asdf => {
+		res.status(200).json(asdf);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	})
 });
 
 module.exports = router;
