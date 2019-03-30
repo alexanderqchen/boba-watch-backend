@@ -26,11 +26,14 @@ router.route('/')
 	.catch(err => {
 		res.status(400).json(err);
 	});
-})
+});
+
+router.route('/:id')
 // Update drink
 .put((req, res, next) => {
+	let drinkId = req.params.id;
 	let drink = req.body.drink;
-	let drinkId = drink.id;
+
 
 	Drinks.update(drink, { where: { id: drinkId } })
 	.then(counts => {
