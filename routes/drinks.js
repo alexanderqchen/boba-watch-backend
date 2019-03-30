@@ -1,24 +1,52 @@
 const express = require('express');
 const router = express.Router();
 
-router.route('/:uuid')
+router.route('/')
 // Get drinks from user
-.get((req, res, next) => {
-	const uuid = req.params.uuid;
-
-	res.send('get /drinks');
+.get(async (req, res, next) => {
+	try {
+		const drinks = await getDrinks();
+		res.status(200).json(drinks);
+	}
+	catch {
+		res.status(500).json();
+	}
 })
 // Add drink to user
 .post((req, res, next) => {
-	const uuid = req.params.uuid;
+	let drink = req.body.drink;
 
-	res.send('post /drinks');
+	try {
+		drink = await addDrink(drink);
+		res.status(200).json(drink);
+	}
+	catch {
+		res.status(500).json();
+	}
+})
+// Update drink
+.put((req, res, next) => {
+	let drink = req.body.drink;
+
+	try {
+		drink = await updateDrink(drink);
+		res.status(200).json(drink);
+	}
+	catch {
+		res.status(500).json();
+	}
 })
 // Delete drink from user
 .delete((req, res, next) => {
-	const uuid = req.params.uuid;
+	const drinkId = req.params.drinkId;
 
-	res.send('delete /drinks');
+	try {
+		const drink = await deleteDrink(drinkId);
+		res.status(200).json(drink);
+	}
+	catch {
+		res.status(500).json();
+	}
 });
 
 module.exports = router;
