@@ -28,9 +28,9 @@
 - `PUT /drinks/:id`
   - Updates drink for user
   - **Request:** Drink Object with id to update
-  - **Response:** Number of Objects updated
+  - **Response:** Number of Drink Objects updated
 - `DELETE /drinks/:id`
   - Deletes drink for user
   - **Request:** drinkId
-  - **Response:** Drink Object that was deleted
+  - **Response:** Number of Drink Objects deleted
 
