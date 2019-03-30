@@ -10,7 +10,8 @@
   "location": "STRING",
   "price": "INTEGER",
   "date": "DATE",
-  "photo": "STRING"
+  "photo": "STRING",
+  "userId": "INTEGER"
 }
 ```
 
@@ -29,11 +30,11 @@
 ### Drinks
 
 - `GET /drinks`
-  - Gets all drinks for user
+  - Gets all drinks
   - **Response:** array of Drink Objects
 - `POST /drinks`
-  - Add drink for user
-  - **Request:** Drink Object
+  - Add drink
+  - **Request:** Drink Object with userId
   - **Response:** Drink Object that was added
 - `PUT /drinks/:id`
   - Updates drink for user
@@ -42,6 +43,9 @@
 - `DELETE /drinks/:id`
   - Deletes drink for user
   - **Response:** Number of Drink Objects deleted
+- `GET /drinks/user/:userId`
+  - Gets all drinks for user
+  - **Response:** array of Drink Objects
 
 ### Users
 
