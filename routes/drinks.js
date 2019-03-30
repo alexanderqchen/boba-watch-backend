@@ -46,12 +46,12 @@ router.route('/:id')
 	const drinkId = req.params.id;
 
 	Drinks.destroy({ where: { id: drinkId } })
-	.then(asdf => {
-		res.status(200).json(asdf);
+	.then(count => {
+		res.status(200).json(count);
 	})
 	.catch(err => {
 		res.status(400).json(err);
-	})
+	});
 });
 
 module.exports = router;

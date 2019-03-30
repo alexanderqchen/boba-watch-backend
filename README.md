@@ -14,6 +14,16 @@
 }
 ```
 
+### User Object
+
+```json
+{
+  "facebookUserId": "STRING",
+  "budget": "INTEGER",
+  "maxDrinks": "INTEGER"
+}
+```
+
 ## Routes
 
 ### Drinks
@@ -31,6 +41,21 @@
   - **Response:** Number of Drink Objects updated
 - `DELETE /drinks/:id`
   - Deletes drink for user
-  - **Request:** drinkId
   - **Response:** Number of Drink Objects deleted
 
+### Users
+
+- `POST /user`
+  - Creates user
+  - **Request:** User Object
+  - **Response:** User Object that was created
+- `GET /user/:id`
+  - Gets user information
+  - **Response:** User Object
+- `PUT /user/:id`
+  - Updates user information
+  - **Request:** User Object
+  - **Response:** Number of User Objects updated
+- `DELETE /user/:id`
+  - Deletes user
+  - **Response:** Number of User Objects deleted

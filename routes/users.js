@@ -41,6 +41,18 @@ router.route('/:id')
 	.catch(err => {
 		res.status(400).json(err);
 	});
+})
+// Delete User
+.delete((req, res, next) => {
+	const id = req.params.id;
+
+	Users.destroy({ where: { id } })
+	.then(count => {
+		res.status(200).json(count);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
 });
 
 module.exports = router;
