@@ -5,7 +5,7 @@ const Drinks = require('../models').Drinks;
 
 router.route('/')
 // Get drinks from user
-.get(async (req, res, next) => {
+.get((req, res, next) => {
 	Drinks.findAll()
 	.then(drinks => {
 		res.status(200).json(drinks);
