@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Drinks = require('../models/drinks');
+const Drinks = require('../models').Drinks;
 
 router.route('/')
 // Get drinks from user
