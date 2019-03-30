@@ -6,13 +6,13 @@ const Drinks = require('../models').Drinks;
 router.route('/')
 // Get drinks from user
 .get(async (req, res, next) => {
-	// try {
-	// 	const drinks = await getDrinks();
-	// 	res.status(200).json(drinks);
-	// }
-	// catch {
-	// 	res.status(500).json();
-	// }
+	Drinks.findAll()
+	.then(drinks => {
+		res.status(200).json(drinks);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
 })
 // Add drink to user
 .post((req, res, next) => {
