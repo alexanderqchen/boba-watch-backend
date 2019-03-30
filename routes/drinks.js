@@ -42,9 +42,9 @@ router.route('/')
 })
 // Delete drink from user
 .delete((req, res, next) => {
-	const id = req.params.id;
+	const drinkId = req.params.id;
 
-	Drinks.destroy({ where: { id } })
+	Drinks.destroy({ where: { id: drinkId } })
 	.then(asdf => {
 		res.status(200).json(asdf);
 	})
