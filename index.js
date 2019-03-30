@@ -7,7 +7,7 @@ const drinksRouter = require('./routes/drinks');
 
 const PORT = 80;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 
