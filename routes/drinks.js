@@ -17,6 +17,7 @@ router.route('/')
 // Add drink to user
 .post((req, res, next) => {
 	let drink = req.body.drink;
+	console.log(req.body);
 
 	Drinks.create(drink)
 	.then(drink => {
