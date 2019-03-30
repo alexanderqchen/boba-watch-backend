@@ -3,7 +3,7 @@ const app = express();
 const usersRouter = require('./routes/users');
 const drinksRouter = require('./routes/drinks');
 
-const PORT = 8080;
+const PORT = 80;
 
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
