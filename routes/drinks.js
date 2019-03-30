@@ -4,8 +4,8 @@ const router = express.Router();
 const Drinks = require('../models').Drinks;
 
 router.route('/')
-// Get drinks from user
-.get(async (req, res, next) => {
+// Get all drinks
+.get((req, res, next) => {
 	Drinks.findAll()
 	.then(drinks => {
 		res.status(200).json(drinks);
@@ -14,14 +14,26 @@ router.route('/')
 		res.status(400).json(err);
 	});
 })
-// Add drink to user
+// Add drink
 .post((req, res, next) => {
 	let drink = req.body.drink;
-	console.log(req.body);
 
 	Drinks.create(drink)
 	.then(drink => {
 		res.status(200).json(drink);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
+});
+
+// Get all drinks from user
+router.get('/user/:userId', (req, res, next) => {
+	const userId = req.params.userId;
+
+	Drinks.findAll({ where: { userId } })
+	.then(drinks => {
+		res.status(200).json(drinks);
 	})
 	.catch(err => {
 		res.status(400).json(err);
@@ -47,12 +59,12 @@ router.route('/:id')
 	const drinkId = req.params.id;
 
 	Drinks.destroy({ where: { id: drinkId } })
-	.then(asdf => {
-		res.status(200).json(asdf);
+	.then(count => {
+		res.status(200).json(count);
 	})
 	.catch(err => {
 		res.status(400).json(err);
-	})
+	});
 });
 
 module.exports = router;

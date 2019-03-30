@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     photo: DataTypes.STRING
   }, {});
   Drinks.associate = function(models) {
-    // associations can be defined here
+    Drinks.belongsTo(models.Users, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
   };
   return Drinks;
 };
