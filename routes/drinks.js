@@ -4,7 +4,7 @@ const router = express.Router();
 const Drinks = require('../models').Drinks;
 
 router.route('/')
-// Get drinks from user
+// Get all drinks
 .get((req, res, next) => {
 	Drinks.findAll()
 	.then(drinks => {
@@ -14,13 +14,26 @@ router.route('/')
 		res.status(400).json(err);
 	});
 })
-// Add drink to user
+// Add drink
 .post((req, res, next) => {
 	let drink = req.body.drink;
 
 	Drinks.create(drink)
 	.then(drink => {
 		res.status(200).json(drink);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
+});
+
+// Get all drinks from user
+router.get('/user/:userId', (req, res, next) => {
+	const userId = req.params.userId;
+
+	Drinks.findAll({ where: { userId } })
+	.then(drinks => {
+		res.status(200).json(drinks);
 	})
 	.catch(err => {
 		res.status(400).json(err);
