@@ -25,11 +25,11 @@
   - Add drink for user
   - **Request:** Drink Object
   - **Response:** Drink Object that was added
-- `PUT /drinks`
+- `PUT /drinks/:id`
   - Updates drink for user
-  - **Request:** Drink Object with drinkId to update
-  - **Response:** Drink Object that was updated
-- `DELETE /drinks`
+  - **Request:** Drink Object with id to update
+  - **Response:** Number of Objects updated
+- `DELETE /drinks/:id`
   - Deletes drink for user
   - **Request:** drinkId
   - **Response:** Drink Object that was deleted

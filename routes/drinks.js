@@ -6,55 +6,53 @@ const Drinks = require('../models').Drinks;
 router.route('/')
 // Get drinks from user
 .get(async (req, res, next) => {
-	// try {
-	// 	const drinks = await getDrinks();
-	// 	res.status(200).json(drinks);
-	// }
-	// catch {
-	// 	res.status(500).json();
-	// }
-})
-// Add drink to user
-.post((req, res, next) => {
-	// let drink = req.body.drink;
-
-	Drinks.create({
-		name: 'test1',
-		location: 'testloc',
-		price: 123,
-		date: new Date(),
-		photo: 'asdf'
-	})
-	.then(drink => {
-		res.status(201).json(drink);
+	Drinks.findAll()
+	.then(drinks => {
+		res.status(200).json(drinks);
 	})
 	.catch(err => {
 		res.status(400).json(err);
 	});
 })
+// Add drink to user
+.post((req, res, next) => {
+	let drink = req.body.drink;
+	console.log(req.body);
+
+	Drinks.create(drink)
+	.then(drink => {
+		res.status(200).json(drink);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
+});
+
+router.route('/:id')
 // Update drink
 .put((req, res, next) => {
-	// let drink = req.body.drink;
+	let drinkId = req.params.id;
+	let drink = req.body.drink;
 
-	// try {
-	// 	drink = await updateDrink(drink);
-	// 	res.status(200).json(drink);
-	// }
-	// catch {
-	// 	res.status(500).json();
-	// }
+	Drinks.update(drink, { where: { id: drinkId } })
+	.then(counts => {
+		res.status(200).json(counts[0]);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
 })
 // Delete drink from user
 .delete((req, res, next) => {
-	// const drinkId = req.params.drinkId;
+	const drinkId = req.params.id;
 
-	// try {
-	// 	const drink = await deleteDrink(drinkId);
-	// 	res.status(200).json(drink);
-	// }
-	// catch {
-	// 	res.status(500).json();
-	// }
+	Drinks.destroy({ where: { id: drinkId } })
+	.then(asdf => {
+		res.status(200).json(asdf);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	})
 });
 
 module.exports = router;
