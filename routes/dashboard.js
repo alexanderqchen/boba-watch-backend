@@ -25,6 +25,10 @@ router.route('/:userId')
 				numDrinks++;
 			}
 		});
+
+		console.log(`spent: ${spent}`);
+		console.log(`numDrinks: ${numDrinks}`);
+
 		const user = await Users.findOne({ where: { id: userId } });
 
 		dashboard = {
@@ -33,10 +37,10 @@ router.route('/:userId')
 			maxDrinks: user.maxDrinks,
 			numDrinks
 		}
-		console.log(dashboard);
 		res.status(200).json(dashboard)
 	}
 	catch (err) {
+		console.log('err');
 		res.status(400).json(err);
 	}
 });
