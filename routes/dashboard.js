@@ -12,8 +12,7 @@ router.route('/:userId')
 	try {
 		const spent = await Drinks.sum('price', { where: { userId } });
 		const numDrinks = await Drinks.count({ where: { userId } });
-		const user = await Users.findOne({ where: { id } });
-
+		const user = await Users.findOne({ where: { id: userId } });
 
 		// where: { actualEndDate: { $lt: sequelize.col('scheduleEndDate') } }
 
@@ -23,7 +22,7 @@ router.route('/:userId')
 			maxDrinks: user.maxDrinks,
 			numDrinks
 		}
-
+		console.log(dashboard);
 		res.status(200).json(dashboard)
 	}
 	catch (err) {
