@@ -14,13 +14,12 @@ router.route('/:userId')
 	try {
 		const spent = await Drinks.sum('price', { where: {
 			userId,
-			date: { $gt: beginningOfMonth }
+			date: { $gt: beginningOfMonth.toISOString() }
 		} });
-		const numDrinks = await Drinks.count({ where: {
-			userId,
-			date: { $gt: beginningOfMonth }
-		} });
+		const numDrinks = await Drinks.count({ where: { userId } });
 		const user = await Users.findOne({ where: { id: userId } });
+
+
 
 		dashboard = {
 			budget: user.budget,
