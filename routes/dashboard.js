@@ -20,18 +20,19 @@ router.route('/:userId')
 			],
 		});
 		const spent = drinks.reduce((acc, drink) => {
-			if (drink.date < beginningOfMonth) {
+			let drinkDate = new Date(drink.date);
+			if (drinkDate < beginningOfMonth) {
 				acc += drink.price
 			}
 			return acc;
 		});
 		const numDrinks = drinks.reduce((acc, drink) => {
-			let drinkDate = new Date(drink.date);
-			console.log('in func');
-			if (drinkDate < beginningOfMonth) {
-				console.log('in if');
-				acc++;
-			}
+			// let drinkDate = new Date(drink.date);
+			// console.log('in func');
+			// if (drinkDate < beginningOfMonth) {
+			// 	console.log('in if');
+			// 	acc++;
+			// }
 			return acc;
 		});
 		const user = await Users.findOne({ where: { id: userId } });
