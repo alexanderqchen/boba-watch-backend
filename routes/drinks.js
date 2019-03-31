@@ -22,6 +22,8 @@ router.route('/')
 router.post('/:accessToken', (req, res, next) => {
 	const accessToken = req.params.accessToken;
 	const drink = req.body.drink;
+	console.log(req.body)
+	console.log(drink);
 
 	const userId = drink.userId;
 

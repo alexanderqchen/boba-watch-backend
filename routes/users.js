@@ -11,8 +11,11 @@ router.post('/login', (req, res, next) => {
 	const facebookUserId = fbRes.userID;
 	const accessToken = fbRes.accessToken;
 
+	console.log(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`);
+
 	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
 	.then(authRes => {
+		console.log(authRes.data);
 		if (authRes.data.data.is_valid) {
 			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
