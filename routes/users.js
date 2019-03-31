@@ -13,7 +13,7 @@ router.post('/login', (req, res, next) => {
 
 	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
 	.then(authRes => {
-		if (authRes.data.is_valid) {
+		if (authRes.data.data.is_valid) {
 			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
 				if (user == null) {
@@ -51,7 +51,42 @@ router.post('/', (req, res, next) => {
 	});
 });
 
-router.route('/:id')
+router.route('/:id/:access_token')
+.all((req, res, next) => {
+	const userId = req.params.id;
+	const accessToken = req.params.accessToken;
+
+	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
+	.then(authRes => {
+		const is_valid = authRes.data.data.is_valid;
+		const facebookUserId = authRes.data.data.user_id;
+
+		if (is_valid) {
+			Users.findOne({ where: { facebookUserId } })
+			.then(user => {
+				if (userId = user.id) {
+					next();
+				}
+				else {
+					res.status(401).json({
+						msg: `Unauthorized to user ${id}`
+					})
+				}
+			})
+			.catch(err => {
+				res.status(400).json(err);
+			})
+		}
+		else {
+			res.status(400).json({
+				msg: "Authentication failed."
+			})
+		}
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
+})
 // Get user information
 .get((req, res, next) => {
 	const id = req.params.id;
