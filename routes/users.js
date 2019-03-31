@@ -6,7 +6,7 @@ const Users = require('../models').Users;
 // Login
 router.post('/login', (req, res, next) => {
 	const fbRes = req.body.fbRes;
-	const facebookUserId = fbRes.facebookUserId;
+	const facebookUserId = fbRes.userId;
 	const accessToken = fbRes.accessToken;
 
 	Users.findOne({ where: { facebookUserId } })
