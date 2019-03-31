@@ -8,7 +8,7 @@ const { appId, appSecret } = require('../config/fb-config')
 // Login
 router.post('/login', (req, res, next) => {
 	const fbRes = req.body.fbRes;
-	const facebookUserId = fbRes.userId;
+	const facebookUserId = fbRes.userID;
 	const accessToken = fbRes.accessToken;
 
 	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
