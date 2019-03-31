@@ -31,7 +31,13 @@ router.route('/')
 router.get('/user/:userId', (req, res, next) => {
 	const userId = req.params.userId;
 
-	Drinks.findAll({ where: { userId } })
+	Drinks.findAll({
+		where: { userId },
+		order: [
+            ['date', 'DESC'],
+            ['id', 'DESC'],
+        ],
+	})
 	.then(drinks => {
 		res.status(200).json(drinks);
 	})
