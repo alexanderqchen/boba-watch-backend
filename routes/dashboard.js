@@ -12,14 +12,26 @@ router.route('/:userId')
 	const beginningOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
 	try {
-		const spent = await Drinks.sum('price', { where: {
-			userId,
-			date: { $gt: '2019-03-20T20:19:57.000Z' }
-		} });
-		const numDrinks = await Drinks.count({ where: { userId } });
+		const drinks = await Drinks.findAll({
+			where: { userId },
+			order: [
+				['date', 'DESC'],
+				['id', 'DESC'],
+			],
+		});
+		const spent = drinks.reduce((acc, drink) => {
+			if (drink.date > beginningOfMonth) {
+				acc += drink.price
+			}
+			return acc;
+		});
+		const numDrinks = drinks.reduce((acc, drink) => {
+			if (drink.date > beginningOfMonth) {
+				acc++;
+			}
+			return acc;
+		});
 		const user = await Users.findOne({ where: { id: userId } });
-
-
 
 		dashboard = {
 			budget: user.budget,
