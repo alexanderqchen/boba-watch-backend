@@ -83,18 +83,6 @@ router.route('/:id/:accessToken')
 		res.status(400).json(err);
 	});
 })
-// Get user information
-.get((req, res, next) => {
-	const id = req.params.id;
-
-	Users.findOne({ where: { id } })
-	.then(user => {
-		res.status(200).json(user);
-	})
-	.catch(err => {
-		res.status(400).json(err);
-	});
-})
 // Update drink
 .put((req, res, next) => {
 	let drinkId = req.params.id;
