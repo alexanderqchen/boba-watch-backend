@@ -20,13 +20,15 @@ router.route('/:userId')
 			],
 		});
 		const spent = drinks.reduce((acc, drink) => {
-			if (drink.date > beginningOfMonth) {
+			if (drink.date < beginningOfMonth) {
 				acc += drink.price
 			}
 			return acc;
 		});
 		const numDrinks = drinks.reduce((acc, drink) => {
-			if (drink.date > beginningOfMonth) {
+			drinkDate = new Date(drink.date);
+
+			if (drinkDate < beginningOfMonth) {
 				acc++;
 			}
 			return acc;
