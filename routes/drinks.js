@@ -50,7 +50,6 @@ router.post('/:accessToken', (req, res, next) => {
 			})
 		}
 		else {
-			console.log(4)
 			res.status(400).json({
 				msg: "Authentication failed."
 			})
@@ -81,14 +80,11 @@ router.route('/:id/:accessToken')
 .all((req, res, next) => {
 	const drinkId = req.params.id;
 	const accessToken = req.params.accessToken;
-	console.log(1)
 	Drinks.findOne({ where: { id: drinkId } })
 	.then(drink => {
-		console.log(0);
 		const userId = drink.userId;
 		axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
 		.then(authRes => {
-			console.log(2)
 			const is_valid = authRes.data.data.is_valid;
 			const facebookUserId = authRes.data.data.user_id;
 
@@ -96,7 +92,6 @@ router.route('/:id/:accessToken')
 				Users.findOne({ where: { facebookUserId } })
 				.then(user => {
 					if (userId == user.id) {
-						console.log(3)
 						return next();
 					}
 					else {
@@ -107,7 +102,6 @@ router.route('/:id/:accessToken')
 				})
 			}
 			else {
-				console.log(4)
 				res.status(400).json({
 					msg: "Authentication failed."
 				})
@@ -122,6 +116,8 @@ router.route('/:id/:accessToken')
 .put((req, res, next) => {
 	let drinkId = req.params.id;
 	let drink = req.body.drink;
+
+	delete drink.userId;
 
 	Drinks.update(drink, { where: { id: drinkId } })
 	.then(counts => {
