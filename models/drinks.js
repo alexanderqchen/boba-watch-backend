@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING,
     price: DataTypes.INTEGER,
     date: DataTypes.DATE,
-    photo: DataTypes.STRING
+    photo: DataTypes.STRING,
+    description: DataTypes.STRING
   }, {});
   Drinks.associate = function(models) {
     Drinks.belongsTo(models.Users, {
