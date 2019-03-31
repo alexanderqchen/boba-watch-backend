@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
 
 const Drinks = require('../models').Drinks;
+const { appId, appSecret } = require('../config/fb-config')
 
 router.route('/')
 // Get all drinks
