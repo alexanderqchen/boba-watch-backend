@@ -11,7 +11,8 @@
   "price": "INTEGER",
   "date": "DATE",
   "photo": "STRING",
-  "userId": "INTEGER"
+  "userId": "INTEGER",
+  "description": "STRING"
 }
 ```
 
