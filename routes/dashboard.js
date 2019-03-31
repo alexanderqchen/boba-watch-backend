@@ -24,7 +24,7 @@ router.route('/:userId')
 			console.log(drink.date)
 			console.log(new Date(drink.date))
 			console.log(beginningOfMonth)
-			if (new Date(drink.Date) > beginningOfMonth) {
+			if (new Date(drink.date) > beginningOfMonth) {
 				console.log('in if')
 				spent += drink.price;
 				numDrinks++;
