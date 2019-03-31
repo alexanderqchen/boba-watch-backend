@@ -26,9 +26,10 @@ router.route('/:userId')
 			return acc;
 		});
 		const numDrinks = drinks.reduce((acc, drink) => {
-			drinkDate = new Date(drink.date);
-
+			let drinkDate = new Date(drink.date);
+			console.log('in func');
 			if (drinkDate < beginningOfMonth) {
+				console.log('in if');
 				acc++;
 			}
 			return acc;
