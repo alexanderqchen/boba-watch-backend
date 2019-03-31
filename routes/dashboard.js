@@ -18,13 +18,14 @@ router.route('/:userId')
 
 		let spent = 0;
 		let numDrinks = 0;
-
+		console.log('1')
 		drinks.forEach((drink) => {
 			if (drinkDate < beginningOfMonth) {
 				spent += drink.price;
 				numDrinks++;
 			}
 		});
+		console.log(2);
 
 		console.log(`spent: ${spent}`);
 		console.log(`numDrinks: ${numDrinks}`);
