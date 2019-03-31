@@ -50,7 +50,7 @@ router.route('/:id/:accessToken')
 .all((req, res, next) => {
 	const drinkId = req.params.id;
 	const accessToken = req.params.accessToken;
-
+	console.log(1)
 	Drinks.findOne({ where: { id: drinkId } })
 	.then(drink => {
 		const userId = drink.userId;
@@ -58,12 +58,13 @@ router.route('/:id/:accessToken')
 		.then(authRes => {
 			const is_valid = authRes.data.data.is_valid;
 			const facebookUserId = authRes.data.data.user_id;
-
+			console.log(2)
 			if (is_valid) {
 				Users.findOne({ where: { facebookUserId } })
 				.then(user => {
 					if (userId == user.id) {
-						next();
+						console.log(3)
+						return next();
 					}
 					else {
 						res.status(401).json({
