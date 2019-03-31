@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
 router.route('/:id/:access_token')
 .all((req, res, next) => {
 	const userId = req.params.id;
-	const accessToken = req.params.accessToken;
+	const accessToken = req.params.access_token;
 
 	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
 	.then(authRes => {
