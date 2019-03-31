@@ -8,13 +8,19 @@ router.route('/:userId')
 // Get all drinks
 .get(async (req, res, next) => {
 	const userId = req.params.userId;
+	const now = new Date();
+	const beginningOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
 
 	try {
-		const spent = await Drinks.sum('price', { where: { userId } });
-		const numDrinks = await Drinks.count({ where: { userId } });
+		const spent = await Drinks.sum('price', { where: {
+			userId,
+			date: { $gt: beginningOfMonth }
+		} });
+		const numDrinks = await Drinks.count({ where: {
+			userId,
+			date: { $gt: beginningOfMonth }
+		} });
 		const user = await Users.findOne({ where: { id: userId } });
-
-		// where: { actualEndDate: { $lt: sequelize.col('scheduleEndDate') } }
 
 		dashboard = {
 			budget: user.budget,
