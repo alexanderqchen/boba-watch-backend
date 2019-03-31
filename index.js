@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const usersRouter = require('./routes/users');
 const drinksRouter = require('./routes/drinks');
+const dashboardRouter = require('./routes/dashboard')
 
 const PORT = 80;
 
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
+app.use('/dashboard', dashboardRouter);
 
 app.listen(PORT, (req, res, next) => {
 	console.log(`Listening on port ${PORT}...`);
