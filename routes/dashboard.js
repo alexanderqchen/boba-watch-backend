@@ -21,7 +21,11 @@ router.route('/:userId')
 		console.log('1')
 		drinks.forEach((drink) => {
 			console.log('asdf')
+			console.log(drink.date)
+			console.log(new Date(drink.date))
+			console.log(beginningOfMonth)
 			if (new Date(drink.Date) > beginningOfMonth) {
+				console.log('in if')
 				spent += drink.price;
 				numDrinks++;
 			}
