@@ -19,6 +19,10 @@ app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 app.use('/dashboard', dashboardRouter);
 
+app.get('/', (req, res, next) => {
+	res.status(200).json({ status: 'OK' });
+});
+
 app.listen(PORT, (req, res, next) => {
 	console.log(`Listening on port ${PORT}...`);
 });
