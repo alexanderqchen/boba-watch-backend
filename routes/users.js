@@ -61,13 +61,11 @@ router.route('/:id/:access_token')
 		const is_valid = authRes.data.data.is_valid;
 		const facebookUserId = authRes.data.data.user_id;
 
-		console.log(authRes);
-
 		if (is_valid) {
 			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
 				if (userId = user.id) {
-					next();
+					return next();
 				}
 				else {
 					res.status(401).json({
