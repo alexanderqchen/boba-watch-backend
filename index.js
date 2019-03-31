@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const https = require('https');
 
 const usersRouter = require('./routes/users');
 const drinksRouter = require('./routes/drinks');
@@ -19,10 +20,12 @@ app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 app.use('/dashboard', dashboardRouter);
 
-app.get('/', (req, res, next) => {
-	res.status(200).json({ status: 'OK' });
-});
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.boba.watch/privkey.pem');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/api.boba.watch/cert.pem');
 
-app.listen(PORT, (req, res, next) => {
+https.createServer({
+    key: privateKey,
+    cert: certificate
+}, app).listen(PORT, (req, res, next) => {
 	console.log(`Listening on port ${PORT}...`);
 });
