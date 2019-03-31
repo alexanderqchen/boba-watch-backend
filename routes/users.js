@@ -64,7 +64,8 @@ router.route('/:id/:access_token')
 		if (is_valid) {
 			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
-				if (userId = user.id) {
+				if (userId == user.id) {
+					console.log('here');
 					return next();
 				}
 				else {
