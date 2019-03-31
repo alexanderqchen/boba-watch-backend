@@ -53,6 +53,7 @@ router.route('/:id/:accessToken')
 	console.log(1)
 	Drinks.findOne({ where: { id: drinkId } })
 	.then(drink => {
+		console.log(0);
 		const userId = drink.userId;
 		axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
 		.then(authRes => {
