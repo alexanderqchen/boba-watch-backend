@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
 
 const Users = require('../models').Users;
+const { appId, appSecret } = require('../config/fb-config')
 
 // Login
 router.post('/login', (req, res, next) => {
@@ -9,18 +11,31 @@ router.post('/login', (req, res, next) => {
 	const facebookUserId = fbRes.userId;
 	const accessToken = fbRes.accessToken;
 
-	Users.findOne({ where: { facebookUserId } })
-	.then(user => {
-		if (user == null) {
-			Users.create({ facebookUserId })
+	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
+	.then(authRes => {
+		if (authRes.data.is_valid) {
+			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
-				res.status(200).json({ userId: user.id });
+				if (user == null) {
+					Users.create({ facebookUserId })
+					.then(user => {
+						res.status(200).json({ userId: user.id });
+					})
+				}
+				else {
+					res.json({ userId: user.id });
+				}
 			})
 		}
 		else {
-			res.json({ userId: user.id });
+			res.status(400).json({
+				msg: "Authentication failed."
+			})
 		}
 	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
 });
 
 // Create user
