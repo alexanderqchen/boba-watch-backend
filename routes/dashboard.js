@@ -22,7 +22,7 @@ router.route('/:userId')
 		const spent = drinks.reduce((acc, drink) => {
 			let drinkDate = new Date(drink.date);
 			if (drinkDate < beginningOfMonth) {
-				acc += drink.price
+				acc += int(drink.price)
 			}
 			return acc;
 		});
