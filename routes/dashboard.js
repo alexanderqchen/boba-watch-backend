@@ -13,27 +13,17 @@ router.route('/:userId')
 
 	try {
 		const drinks = await Drinks.findAll({
-			where: { userId },
-			order: [
-				['date', 'DESC'],
-				['id', 'DESC'],
-			],
+			where: { userId }
 		});
-		const spent = drinks.reduce((acc, drink) => {
-			let drinkDate = new Date(drink.date);
+
+		let spent = 0;
+		let numDrinks = 0;
+
+		drinks.forEach((drink) => {
 			if (drinkDate < beginningOfMonth) {
-				acc += int(drink.price)
+				spent += drink.price;
+				numDrinks++;
 			}
-			return acc;
-		});
-		const numDrinks = drinks.reduce((acc, drink) => {
-			// let drinkDate = new Date(drink.date);
-			// console.log('in func');
-			// if (drinkDate < beginningOfMonth) {
-			// 	console.log('in if');
-			// 	acc++;
-			// }
-			return acc;
 		});
 		const user = await Users.findOne({ where: { id: userId } });
 
