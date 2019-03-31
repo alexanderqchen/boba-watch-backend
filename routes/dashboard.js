@@ -9,7 +9,7 @@ router.route('/:userId')
 .get(async (req, res, next) => {
 	const userId = req.params.userId;
 	const now = new Date();
-	const beginningOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+	const beginningOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
 	try {
 		const spent = await Drinks.sum('price', { where: {
