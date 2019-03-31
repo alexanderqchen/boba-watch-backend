@@ -3,6 +3,26 @@ const router = express.Router();
 
 const Users = require('../models').Users;
 
+// Login
+router.post('/login', (req, res, next) => {
+	const fbRes = req.body.fbRes;
+	const facebookUserId = fbRes.facebookUserId;
+	const accessToken = fbRes.accessToken;
+
+	Users.findOne({ where: { facebookUserId } })
+	.then(user => {
+		if (user == null) {
+			Users.create({ facebookUserId })
+			.then(user => {
+				res.status(200).json({ userId: user.id });
+			})
+		}
+		else {
+			res.json({ userId: user.id });
+		}
+	})
+});
+
 // Create user
 router.post('/', (req, res, next) => {
 	const user = req.body.user;
