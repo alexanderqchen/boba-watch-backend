@@ -18,23 +18,14 @@ router.route('/:userId')
 
 		let spent = 0;
 		let numDrinks = 0;
-		console.log('1')
+
 		drinks.forEach((drink) => {
-			console.log('asdf')
-			console.log(drink.date)
-			console.log(new Date(drink.date))
 			console.log(beginningOfMonth)
 			if (new Date(drink.date) > beginningOfMonth) {
-				console.log('in if')
 				spent += drink.price;
 				numDrinks++;
 			}
 		});
-		console.log(2);
-
-		console.log(`spent: ${spent}`);
-		console.log(`numDrinks: ${numDrinks}`);
-
 		const user = await Users.findOne({ where: { id: userId } });
 
 		dashboard = {
@@ -46,7 +37,7 @@ router.route('/:userId')
 		res.status(200).json(dashboard)
 	}
 	catch (err) {
-		console.log('err');
+		err.message = 'error with GET /dashboard/:userId';
 		res.status(400).json(err);
 	}
 });
