@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const https = require('https');
+const fs = require('fs');
 
 const usersRouter = require('./routes/users');
 const drinksRouter = require('./routes/drinks');
 const dashboardRouter = require('./routes/dashboard')
 
-const PORT = 80;
+const PORT = 443;
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
