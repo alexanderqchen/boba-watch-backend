@@ -57,9 +57,10 @@ router.route('/:id/:accessToken')
 		const userId = drink.userId;
 		axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
 		.then(authRes => {
+			console.log(2)
 			const is_valid = authRes.data.data.is_valid;
 			const facebookUserId = authRes.data.data.user_id;
-			console.log(2)
+
 			if (is_valid) {
 				Users.findOne({ where: { facebookUserId } })
 				.then(user => {
@@ -75,6 +76,7 @@ router.route('/:id/:accessToken')
 				})
 			}
 			else {
+				console.log(4)
 				res.status(400).json({
 					msg: "Authentication failed."
 				})
