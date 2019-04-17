@@ -28,6 +28,20 @@
 
 ## Routes
 
+### Dashboard
+
+- `GET /dashboard/:userId`
+  - Gets all data for the dashboard for the user
+  - **Response:** 
+    ```json
+    {
+      "budget": "INTEGER",
+      "spent": "INTEGER",
+      "maxDrinks": "INTEGER",
+      "numDrinks": "INTEGER"
+    }
+    ```
+
 ### Drinks
 
 - `GET /drinks`
