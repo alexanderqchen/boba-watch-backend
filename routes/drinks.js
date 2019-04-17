@@ -116,7 +116,7 @@ router.route('/:id/:accessToken')
 	});
 })
 
-router.route('delete/:id/:accessToken')
+router.route('/delete/:id/:accessToken')
 .all((req, res, next) => {
 	const drinkId = req.params.id;
 	const accessToken = req.params.accessToken;
