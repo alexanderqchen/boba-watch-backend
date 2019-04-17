@@ -13,6 +13,7 @@ const PORT = 443;
 app.use(bodyParser.json());
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
@@ -20,6 +21,13 @@ app.use((req, res, next) => {
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 app.use('/dashboard', dashboardRouter);
+
+
+app.all('/*', (req, res, next) => {
+	res.json({
+		msg: "Read the API documentation here: https://github.com/alexanderqchen/boba-watch-backend"
+	});
+});
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.boba.watch/privkey.pem');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/api.boba.watch/cert.pem');
