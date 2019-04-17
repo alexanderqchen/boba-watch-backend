@@ -6,18 +6,6 @@ const Drinks = require('../models').Drinks;
 const Users = require('../models').Users;
 const { appId, appSecret } = require('../config/fb-config')
 
-router.route('/')
-// Get all drinks
-.get((req, res, next) => {
-	Drinks.findAll()
-	.then(drinks => {
-		res.status(200).json(drinks);
-	})
-	.catch(err => {
-		res.status(400).json(err);
-	});
-});
-
 // Add drink
 router.post('/:accessToken', (req, res, next) => {
 	const accessToken = req.params.accessToken;
