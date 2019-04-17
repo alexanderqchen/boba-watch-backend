@@ -50,21 +50,21 @@
 
 ### Users
 
-- `POST /user/login`
+- `POST /users/login`
   - Logs in
   - **Request:** Facebook Response Object
   - **Response:** `{ userId: <userId> }`
-- `POST /user`
+- `POST /users`
   - Creates user
   - **Request:** User Object
   - **Response:** User Object that was created
-- `GET /user/:id/:accessToken`
+- `GET /users/:id/:accessToken`
   - Gets user information
   - **Response:** User Object
-- `PUT /user/:id/:accessToken`
+- `PUT /users/:id/:accessToken`
   - Updates user information
   - **Request:** User Object
   - **Response:** Number of User Objects updated
-- `DELETE /user/:id/:accessToken`
+- `DELETE /users/:id/:accessToken`
   - Deletes user
   - **Response:** Number of User Objects deleted
