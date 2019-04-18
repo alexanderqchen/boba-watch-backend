@@ -42,6 +42,7 @@ router.post('/login', (req, res, next) => {
 // Create user
 router.post('/', (req, res, next) => {
 	const user = req.body.user;
+	delete user.id;
 
 	Users.create(user)
 	.then(user => {
@@ -105,6 +106,9 @@ router.route('/:id/:access_token')
 .put((req, res, next) => {
 	const id = req.params.id;
 	const user = req.body.user;
+
+	delete user.id;
+	delete user.facebookUserId;
 
 	Users.update(user, { where: { id } })
 	.then(counts => {
