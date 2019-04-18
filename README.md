@@ -32,7 +32,7 @@
 
 - `GET /dashboard/:userId`
   - Gets all data for the dashboard for the user
-  - **Response:** 
+  - **Response:**
     ```json
     {
       "budget": "INTEGER",
@@ -68,10 +68,6 @@
   - Logs in
   - **Request:** Facebook Response Object
   - **Response:** `{ userId: <userId> }`
-- `POST /users`
-  - Creates user
-  - **Request:** User Object
-  - **Response:** User Object that was created
 - `GET /users/:id/:accessToken`
   - Gets user information
   - **Response:** User Object

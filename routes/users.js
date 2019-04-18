@@ -39,19 +39,6 @@ router.post('/login', (req, res, next) => {
 	});
 });
 
-// Create user
-router.post('/', (req, res, next) => {
-	const user = req.body.user;
-
-	Users.create(user)
-	.then(user => {
-		res.status(200).json(user)
-	})
-	.catch(err => {
-		res.status(400).json(err);
-	});
-});
-
 router.route('/:id/:access_token')
 .all((req, res, next) => {
 	const userId = req.params.id;
@@ -105,6 +92,9 @@ router.route('/:id/:access_token')
 .put((req, res, next) => {
 	const id = req.params.id;
 	const user = req.body.user;
+
+	delete user.id;
+	delete user.facebookUserId;
 
 	Users.update(user, { where: { id } })
 	.then(counts => {

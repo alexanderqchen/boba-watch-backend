@@ -10,6 +10,7 @@ const { appId, appSecret } = require('../config/fb-config')
 router.post('/:accessToken', (req, res, next) => {
 	const accessToken = req.params.accessToken;
 	const drink = req.body.drink;
+	delete drink.id;
 
 	const userId = drink.userId;
 
@@ -105,6 +106,7 @@ router.route('/:id/:accessToken')
 	let drinkId = req.params.id;
 	let drink = req.body.drink;
 
+	delete drink.id;
 	delete drink.userId;
 
 	Drinks.update(drink, { where: { id: drinkId } })
