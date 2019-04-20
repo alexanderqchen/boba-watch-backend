@@ -4,7 +4,6 @@ const axios = require('axios');
 
 const Users = require('../models').Users;
 const { appId, appSecret } = require('../config/fb-config')
-const { DEFAULT_BUDGET, DEFAULT_MAXDRINKS } = require('../config/defaults')
 
 // Login
 router.post('/login', (req, res, next) => {
@@ -18,7 +17,7 @@ router.post('/login', (req, res, next) => {
 			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
 				if (user == null) {
-					Users.create({ facebookUserId, budget: DEFAULT_BUDGET, maxDrinks: DEFAULT_MAXDRINKS })
+					Users.create({ facebookUserId })
 					.then(user => {
 						res.status(200).json({ userId: user.id });
 					})
