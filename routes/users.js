@@ -38,6 +38,70 @@ router.post('/login', (req, res, next) => {
 	});
 });
 
+// Public profile actions
+router.route('/public/:id')
+// Check if public
+.get((req, res, next) => {
+	const id = req.params.id;
+
+	Users.findOne({ where: { id }})
+	.then(user => {
+		res.status(200).json({ public: user.public })
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	})
+})
+// Authentication
+.all((req, res, next) => {
+	const userId = req.params.id;
+	const accessToken = req.body.accessToken;
+
+	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
+	.then(authRes => {
+		const is_valid = authRes.data.data.is_valid;
+		const facebookUserId = authRes.data.data.user_id;
+
+		if (is_valid) {
+			Users.findOne({ where: { facebookUserId } })
+			.then(user => {
+				if (userId == user.id) {
+					return next();
+				}
+				else {
+					res.status(401).json({
+						msg: `Unauthorized to user ${id}`
+					})
+				}
+			})
+		}
+		else {
+			res.status(400).json({
+				msg: "Authentication failed."
+			})
+		}
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	})
+})
+// Change public setting
+.post((req, res, next) => {
+	const id = req.params.id;
+	const public = req.body.public;
+
+	const user = { public }
+
+	Users.update(user, { where: { id } })
+	.then(counts => {
+		res.status(200).json(counts[0]);
+	})
+	.catch(err => {
+		res.status(400).json(err);
+	});
+});
+
+// Authenticated user actions
 router.route('/:id/:access_token')
 .all((req, res, next) => {
 	const userId = req.params.id;
@@ -52,7 +116,6 @@ router.route('/:id/:access_token')
 			Users.findOne({ where: { facebookUserId } })
 			.then(user => {
 				if (userId == user.id) {
-					console.log('here');
 					return next();
 				}
 				else {
