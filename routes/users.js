@@ -86,7 +86,7 @@ router.route('/public/:id')
 	})
 })
 // Change public setting
-.post((req, res, next) => {
+.put((req, res, next) => {
 	const id = req.params.id;
 	const public = req.body.public;
 
