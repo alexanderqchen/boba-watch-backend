@@ -22,7 +22,8 @@
 {
   "facebookUserId": "STRING",
   "budget": "INTEGER",
-  "maxDrinks": "INTEGER"
+  "maxDrinks": "INTEGER",
+  "public": "BOOLEAN"
 }
 ```
 
@@ -68,6 +69,13 @@
   - Logs in
   - **Request:** Facebook Response Object
   - **Response:** `{ userId: <userId> }`
+- `GET /users/public/:id`
+  - Checks if user has public profile sharing on
+  - **Response:** `{ public: <boolean> }`
+- `PUT /users/public/:id`
+  - Change user's public profile setting
+  - **Request:** `{ accessToken: <token>, public: <boolean> }`
+  - **Response:** Number of User Objects updated
 - `GET /users/:id/:accessToken`
   - Gets user information
   - **Response:** User Object
