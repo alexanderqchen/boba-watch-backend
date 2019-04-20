@@ -8,7 +8,7 @@ module.exports = {
         'Users',
         'budget',
         {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           allowNull: false,
           defaultValue: DEFAULT_BUDGET
         }
@@ -17,7 +17,7 @@ module.exports = {
         'Users',
         'maxDrinks',
         {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           allowNull: false,
           defaultValue: DEFAULT_MAXDRINKS
         }
@@ -26,7 +26,7 @@ module.exports = {
         'Users',
         'public',
         {
-          type: DataTypes.BOOLEAN,
+          type: Sequelize.BOOLEAN,
           allowNull: false,
           defaultValue: false
         }
@@ -40,21 +40,21 @@ module.exports = {
         'Users',
         'budget',
         {
-          type: DataTypes.INTEGER
+          type: Sequelize.INTEGER
         }
       ),
       queryInterface.changeColumn(
         'Users',
         'maxDrinks',
         {
-          type: DataTypes.INTEGER
+          type: Sequelize.INTEGER
         }
       ),
       queryInterface.changeColumn(
         'Users',
         'public',
         {
-          type: DataTypes.BOOLEAN
+          type: Sequelize.BOOLEAN
         }
       )
     ])
