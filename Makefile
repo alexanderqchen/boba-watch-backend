@@ -7,6 +7,8 @@ SQL_INSTANCE_CONNECTION_NAME=boba-watch:us-west2:instance0
 SQL_USER=root
 
 prod:
+	NODE_PID=$(shell sudo netstat -nlp | grep 443 | sed s/.*LISTEN// | tr -dc 0-9)
+	sudo kill -9 $(NODE_PID)
 	npm start
 dev:
 	nodemon index.js
