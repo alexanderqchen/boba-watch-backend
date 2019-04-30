@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-const Users = require('../models').Users;
-const { appId, appSecret } = require('../config/fb-config')
+const { Users } = require.main.require('./models');
+const { appId, appSecret } = require.main.require('./config/fb-config')
 
 // Login
 router.post('/login', (req, res, next) => {

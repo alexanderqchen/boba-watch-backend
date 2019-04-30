@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Drinks = require('../models').Drinks;
-const Users = require('../models').Users;
+const { Drinks, Users } = require.main.require('./models');
 
 router.route('/:userId')
 // Get all drinks
