@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "sudo nodemon index.js",
+    "start": "sudo -E node index.js &",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,8 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "sequelize": "^5.2.7"
+    "mysql2": "^1.6.5",
+    "npm": "^6.9.0",
+    "sequelize": "^5.8.1"
   }
 }
