@@ -19,7 +19,6 @@ router.get('/:userId', authorizeUser, async (req, res, next) => {
 		let numDrinks = 0;
 
 		drinks.forEach((drink) => {
-			console.log(beginningOfMonth)
 			if (new Date(drink.date) > beginningOfMonth) {
 				spent += drink.price;
 				numDrinks++;
@@ -33,7 +32,7 @@ router.get('/:userId', authorizeUser, async (req, res, next) => {
 			maxDrinks: user.maxDrinks,
 			numDrinks
 		}
-		res.status(200).json(dashboard)
+		res.status(200).json(dashboard);
 	}
 	catch (err) {
 		err.message = 'error with GET /dashboard/:userId';

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { Drinks } = require.main.require('./models');
+const { Drinks, Users } = require.main.require('./models');
 const { authorizeUser } = require('./auth');
 
 const setUserId = async (req, res, next) => {
@@ -18,28 +18,42 @@ const sanatizeDrink = (req, res, next) => {
 	next();
 }
 
-// TODO: make this authenticated by public setting as well as accessToken
-// Get all drinks from user
-router.get('/user/:userId', (req, res, next) => {
-	const userId = req.params.userId;
-
-	Drinks.findAll({
+const getDrinksForUser = (userId) => {
+	const drinks = Drinks.findAll({
 		where: { userId },
 		order: [
-            ['date', 'DESC'],
-            ['id', 'DESC'],
-        ],
-	})
-	.then(drinks => {
-		res.status(200).json(drinks);
-	})
-	.catch(err => {
-		res.status(400).json(err);
+			['date', 'DESC'],
+			['id', 'DESC'],
+		],
 	});
-});
 
-// Add drink
-router.post('/user/:userId', authorizeUser, sanatizeDrink, (req, res, next) => {
+	return drinks;
+}
+
+// Get all drinks from user
+router.route('/user/:userId')
+.get(async (req, res, next) => {
+	const userId = req.params.userId;
+
+	const user = await Users.findOne({ where: { id: userId } });
+	if (user == null) {
+		res.status(400).json({ msg: 'Invalid user id.' });
+	}
+
+	if (user.public) {
+		const drinks = await getDrinksForUser(userId);
+		res.status(200).json(drinks);
+	}
+
+	next();
+})
+.all(authorizeUser)
+.get(async (req, res, next) => {
+	const userId = req.params.userId;
+	const drinks = await getDrinksForUser(userId);
+	res.status(200).json(drinks);
+})
+.post(sanatizeDrink, (req, res, next) => {
 	const userId = req.params.userId;
 	const drink = req.body.drink;
 
