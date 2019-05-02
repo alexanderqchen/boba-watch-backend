@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 
-const { Drinks, Users } = require.main.require('./models');
-const { appId, appSecret } = require.main.require('./config/fb-config')
-const authorizeUser = require('./auth');
+const { Drinks } = require.main.require('./models');
+const { authorizeUser } = require('./auth');
 
 const setUserId = async (req, res, next) => {
 	const drinkId = req.params.drinkId;

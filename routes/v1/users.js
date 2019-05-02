@@ -3,40 +3,35 @@ const router = express.Router();
 const axios = require('axios');
 
 const { Users } = require.main.require('./models');
-const { appId, appSecret } = require.main.require('./config/fb-config')
-const authorizeUser = require('./auth');
+const { authorizeUser, checkAccessToken } = require('./auth');
 
 // Login
-router.post('/login', (req, res, next) => {
-	const fbRes = req.body.fbRes;
-	const facebookUserId = fbRes.userID;
-	const accessToken = fbRes.accessToken;
+router.post('/login', async (req, res, next) => {
+	const accessToken = req.body.accessToken;
 
-	axios.get(`https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`)
-	.then(authRes => {
-		if (authRes.data.data.is_valid) {
-			Users.findOne({ where: { facebookUserId } })
-			.then(user => {
-				if (user == null) {
-					Users.create({ facebookUserId })
-					.then(user => {
-						res.status(200).json({ userId: user.id });
-					})
-				}
-				else {
-					res.json({ userId: user.id });
-				}
-			})
-		}
-		else {
-			res.status(400).json({
-				msg: "Authentication failed."
-			})
-		}
-	})
-	.catch(err => {
-		res.status(400).json(err);
-	});
+	const authRes = await checkAccessToken(accessToken);
+	const validToken = authRes.data.data.is_valid;
+	const facebookUserId = authRes.data.data.user_id;
+
+	if (validToken) {
+		Users.findOne({ where: { facebookUserId } })
+		.then(user => {
+			if (user == null) {
+				Users.create({ facebookUserId })
+				.then(user => {
+					res.status(200).json({ userId: user.id });
+				})
+			}
+			else {
+				res.json({ userId: user.id });
+			}
+		})
+	}
+	else {
+		res.status(401).json({
+			msg: "Invalid Facebook access token."
+		})
+	}
 });
 
 // Public profile actions

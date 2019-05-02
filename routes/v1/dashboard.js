@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { Drinks, Users } = require.main.require('./models');
+const { authorizeUser } = require('./auth');
 
-router.route('/:userId')
 // Get all drinks
-.get(async (req, res, next) => {
+router.get('/:userId', authorizeUser, async (req, res, next) => {
 	const userId = req.params.userId;
 	const now = new Date();
 	const beginningOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
