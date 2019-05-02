@@ -12,23 +12,21 @@ const setUserId = async (req, res, next) => {
 	next();
 };
 
-const sanatizeDrink = (req, res, next) => {
+const sanitizeDrink = (req, res, next) => {
 	delete req.body.drink.id;
 	delete req.body.drink.userId;
 	next();
-}
+};
 
-const getDrinksForUser = (userId) => {
-	const drinks = Drinks.findAll({
-		where: { userId },
-		order: [
-			['date', 'DESC'],
-			['id', 'DESC'],
-		],
-	});
-
-	return drinks;
-}
+const getDrinksForUser = async (userId) => {
+	return await Drinks.findAll({
+			where: { userId },
+			order: [
+				['date', 'DESC'],
+				['id', 'DESC'],
+			],
+		});
+};
 
 // Get all drinks from user
 router.route('/user/:userId')
@@ -36,6 +34,7 @@ router.route('/user/:userId')
 	const userId = req.params.userId;
 
 	const user = await Users.findOne({ where: { id: userId } });
+
 	if (user == null) {
 		res.status(400).json({ msg: 'Invalid user id.' });
 	}
@@ -53,7 +52,7 @@ router.route('/user/:userId')
 	const drinks = await getDrinksForUser(userId);
 	res.status(200).json(drinks);
 })
-.post(sanatizeDrink, (req, res, next) => {
+.post(sanitizeDrink, (req, res, next) => {
 	const userId = req.params.userId;
 	const drink = req.body.drink;
 
@@ -71,7 +70,7 @@ router.route('/user/:userId')
 router.route('/:drinkId')
 .all(setUserId, authorizeUser)
 // Update drink
-.put(sanatizeDrink, (req, res, next) => {
+.put(sanitizeDrink, (req, res, next) => {
 	const drinkId = req.params.drinkId;
 	const drink = req.body.drink;
 
