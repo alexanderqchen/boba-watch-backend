@@ -4,10 +4,7 @@ const bodyParser = require('body-parser');
 const https = require('https');
 const fs = require('fs');
 
-const usersRouter = require('./routes/users');
-const drinksRouter = require('./routes/drinks');
-const dashboardRouter = require('./routes/dashboard')
-
+const apiRouter = require('./routes');
 const NODE_ENV = process.env.NODE_ENV;
 
 app.use(bodyParser.json());
@@ -18,9 +15,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use('/users', usersRouter);
-app.use('/drinks', drinksRouter);
-app.use('/dashboard', dashboardRouter);
+app.use('/', apiRouter);
 
 app.all('/*', (req, res, next) => {
 	res.json({

@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-const Drinks = require('../models').Drinks;
-const Users = require('../models').Users;
-const { appId, appSecret } = require('../config/fb-config')
+const { Drinks, Users } = require.main.require('./models');
+const { appId, appSecret } = require.main.require('./config/fb-config')
 
 // Add drink
 router.post('/:accessToken', (req, res, next) => {

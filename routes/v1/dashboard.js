@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const Drinks = require('../models').Drinks;
-const Users = require('../models').Users;
+const { Drinks, Users } = require.main.require('./models');
+const { authorizeUser } = require('./auth');
 
-router.route('/:userId')
 // Get all drinks
-.get(async (req, res, next) => {
+router.get('/:userId', authorizeUser, async (req, res, next) => {
 	const userId = req.params.userId;
 	const now = new Date();
 	const beginningOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -20,7 +19,6 @@ router.route('/:userId')
 		let numDrinks = 0;
 
 		drinks.forEach((drink) => {
-			console.log(beginningOfMonth)
 			if (new Date(drink.date) > beginningOfMonth) {
 				spent += drink.price;
 				numDrinks++;
@@ -34,7 +32,7 @@ router.route('/:userId')
 			maxDrinks: user.maxDrinks,
 			numDrinks
 		}
-		res.status(200).json(dashboard)
+		res.status(200).json(dashboard);
 	}
 	catch (err) {
 		err.message = 'error with GET /dashboard/:userId';
