@@ -20,7 +20,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "mysql2": "^1.6.5",
     "npm": "^6.13.4",
     "sequelize": "^5.8.1"
